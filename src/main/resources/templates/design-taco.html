@@ -42,7 +42,7 @@
             <h3>Create your wrap:</h3>
             <div th:each="ingredient : ${cheese}">
                 <input name = "ingredientsMatchingWithHtmlPage" type="checkbox" th:value="${ingredient.id}"/>
-                <span th:text="${ingredient}">test</span>
+                <span th:text="${ingredient.name}">test</span>
             </div>
         </div>
         <br><br>
