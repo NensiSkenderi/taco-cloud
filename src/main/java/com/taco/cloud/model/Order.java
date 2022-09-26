@@ -5,8 +5,12 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.sql.Date;
 
 public class Order {
+
+    private Long id;
+    private Date createdAt;
 
     @NotBlank(message = "Name is required") //a constrained String is valid as long as it's not null, and the trimmed length is greater than zero
     private String name;
@@ -109,6 +113,22 @@ public class Order {
 
     public void setCcCVV(String ccCVV) {
         this.ccCVV = ccCVV;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

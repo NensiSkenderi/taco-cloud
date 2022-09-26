@@ -1,9 +1,12 @@
 package com.taco.cloud.model;
 
+import java.sql.Date;
 import java.util.List;
 
 public class Taco {
 
+    private Long id;
+    private Date createdAt;
     private String name;
     private List<String> ingredientsMatchingWithHtmlPage;
 
@@ -29,6 +32,22 @@ public class Taco {
 
     public List<String> getIngredientsMatchingWithHtmlPage() {
         return ingredientsMatchingWithHtmlPage;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     @Override

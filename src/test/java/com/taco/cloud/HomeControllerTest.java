@@ -1,6 +1,5 @@
 package com.taco.cloud;
 
-import com.taco.cloud.controller.HomeController;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +12,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class) //check because with 2.7.3 not working
-@WebMvcTest(HomeController.class)
+//@WebMvcTest(HomeController.class) removing this since we added view controller registry
 public class HomeControllerTest {
 
     @Autowired
