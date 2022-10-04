@@ -2,14 +2,14 @@ package com.taco.cloud.model;
 
 public class TacoIngredient {
 
-    private int id;
+    private String id;
     private String name;
     private Type type;
 
     public TacoIngredient() {
     }
 
-    public TacoIngredient(int id, String name, Type type) {
+    public TacoIngredient(String id, String name, Type type) {
         this.id = id;
         this.name = name;
         this.type = type;
@@ -19,11 +19,11 @@ public class TacoIngredient {
         VEGGIE, WRAP, PROTEIN, CHEESE
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

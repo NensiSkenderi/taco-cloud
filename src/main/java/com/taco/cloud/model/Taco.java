@@ -1,19 +1,24 @@
 package com.taco.cloud.model;
 
-import java.sql.Date;
+import javax.validation.constraints.NotBlank;
+import java.util.Date;
 import java.util.List;
 
 public class Taco {
 
     private Long id;
+
     private Date createdAt;
+
+    @NotBlank(message = "City is required")
     private String name;
-    private List<String> ingredientsMatchingWithHtmlPage;
+
+    private List<TacoIngredient> ingredientsMatchingWithHtmlPage;
 
     public Taco() {
     }
 
-    public Taco(String name, List<String> ingredientsMatchingWithHtmlPage) {
+    public Taco(String name, List<TacoIngredient> ingredientsMatchingWithHtmlPage) {
         this.name = name;
         this.ingredientsMatchingWithHtmlPage = ingredientsMatchingWithHtmlPage;
     }
@@ -26,11 +31,11 @@ public class Taco {
         this.name = name;
     }
 
-    public void setIngredientsMatchingWithHtmlPage(List<String> ingredientsMatchingWithHtmlPage) {
+    public void setIngredientsMatchingWithHtmlPage(List<TacoIngredient> ingredientsMatchingWithHtmlPage) {
         this.ingredientsMatchingWithHtmlPage = ingredientsMatchingWithHtmlPage;
     }
 
-    public List<String> getIngredientsMatchingWithHtmlPage() {
+    public List<TacoIngredient> getIngredientsMatchingWithHtmlPage() {
         return ingredientsMatchingWithHtmlPage;
     }
 

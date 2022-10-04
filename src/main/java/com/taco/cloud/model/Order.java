@@ -5,7 +5,8 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
-import java.sql.Date;
+import java.util.Date;
+import java.util.List;
 
 public class Order {
 
@@ -37,10 +38,14 @@ public class Order {
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
 
+    private List<Taco> tacos;
+
     public Order() {
     }
 
-    public Order(String name, String street, String city, String state, String zip, String ccNumber, String ccExpiration, String ccCVV) {
+    public Order(Long id, Date createdAt, String name, String street, String city, String state, String zip, String ccNumber, String ccExpiration, String ccCVV, List<Taco> tacos) {
+        this.id = id;
+        this.createdAt = createdAt;
         this.name = name;
         this.street = street;
         this.city = city;
@@ -49,6 +54,7 @@ public class Order {
         this.ccNumber = ccNumber;
         this.ccExpiration = ccExpiration;
         this.ccCVV = ccCVV;
+        this.tacos = tacos;
     }
 
     public String getName() {
@@ -131,6 +137,14 @@ public class Order {
         this.createdAt = createdAt;
     }
 
+    public List<Taco> getTacos() {
+        return tacos;
+    }
+
+    public void setTacos(List<Taco> tacos) {
+        this.tacos = tacos;
+    }
+
     @Override
     public String toString() {
         return "Order{" +
@@ -143,5 +157,8 @@ public class Order {
                 ", ccExpiration='" + ccExpiration + '\'' +
                 ", ccCVV='" + ccCVV + '\'' +
                 '}';
+    }
+
+    public void addDesign(Taco savedTaco) {
     }
 }
