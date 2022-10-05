@@ -83,7 +83,7 @@ public class DesignTacoController {
         }
 
         Taco savedTaco = tacoRepository.save(taco);
-        order.addDesign(savedTaco); // order is kept in the session
+        order.addTaco(savedTaco); // order is kept in the session
         return "redirect:/orders/current";
     }
 }

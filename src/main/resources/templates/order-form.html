@@ -41,11 +41,11 @@
           th:errors="*{city}">City Error</span>
     <br/>
 
-    <label for="state">State: </label>
-    <input type="text" th:field="*{state}"/>
+    <label for="deliveryState">State: </label>
+    <input type="text" th:field="*{deliveryState}"/>
     <span class="validationError"
-          th:if="${#fields.hasErrors('state')}"
-          th:errors="*{state}">State Error</span>
+          th:if="${#fields.hasErrors('deliveryState')}"
+          th:errors="*{deliveryState}">State Error</span>
     <br/>
 
     <label for="zip">Zip code: </label>
@@ -66,15 +66,15 @@
     <label for="ccExpiration">Expiration: </label>
     <input type="text" th:field="*{ccExpiration}"/>
     <span class="validationError"
-          th:if="${#fields.hasErrors('ccNumber')}"
-          th:errors="*{ccNumber}">CC Num Error</span>
+          th:if="${#fields.hasErrors('ccExpiration')}"
+          th:errors="*{ccExpiration}">CC Num Error</span>
     <br/>
 
     <label for="ccCVV">CVV: </label>
     <input type="text" th:field="*{ccCVV}"/>
     <span class="validationError"
-          th:if="${#fields.hasErrors('ccNumber')}"
-          th:errors="*{ccNumber}">CCV Error</span>
+          th:if="${#fields.hasErrors('ccCVV')}"
+          th:errors="*{ccCVV}">CCV Error</span>
     <br/>
 
     <input type="submit" value="Submit order"/>

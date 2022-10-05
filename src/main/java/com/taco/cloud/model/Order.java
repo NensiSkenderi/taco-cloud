@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.CreditCardNumber;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class Order {
     private String city;
 
     @NotBlank(message = "State is required")
-    private String state;
+    private String deliveryState;
 
     @NotBlank(message = "Zip code is required")
     private String zip;
@@ -38,18 +39,18 @@ public class Order {
     @Digits(integer=3, fraction=0, message="Invalid CVV")
     private String ccCVV;
 
-    private List<Taco> tacos;
+    private List<Taco> tacos = new ArrayList<>();
 
     public Order() {
     }
 
-    public Order(Long id, Date createdAt, String name, String street, String city, String state, String zip, String ccNumber, String ccExpiration, String ccCVV, List<Taco> tacos) {
+    public Order(Long id, Date createdAt, String name, String street, String city, String deliveryState, String zip, String ccNumber, String ccExpiration, String ccCVV, List<Taco> tacos) {
         this.id = id;
         this.createdAt = createdAt;
         this.name = name;
         this.street = street;
         this.city = city;
-        this.state = state;
+        this.deliveryState = deliveryState;
         this.zip = zip;
         this.ccNumber = ccNumber;
         this.ccExpiration = ccExpiration;
@@ -81,12 +82,12 @@ public class Order {
         this.city = city;
     }
 
-    public String getState() {
-        return state;
+    public String getDeliveryState() {
+        return deliveryState;
     }
 
-    public void setState(String state) {
-        this.state = state;
+    public void setDeliveryState(String deliveryState) {
+        this.deliveryState = deliveryState;
     }
 
     public String getZip() {
@@ -151,7 +152,7 @@ public class Order {
                 "name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
-                ", state='" + state + '\'' +
+                ", deliveryState='" + deliveryState + '\'' +
                 ", zip='" + zip + '\'' +
                 ", ccNumber='" + ccNumber + '\'' +
                 ", ccExpiration='" + ccExpiration + '\'' +
@@ -159,6 +160,7 @@ public class Order {
                 '}';
     }
 
-    public void addDesign(Taco savedTaco) {
+    public void addTaco(Taco savedTaco) {
+        tacos.add(savedTaco);
     }
 }
