@@ -14,12 +14,14 @@ public class Taco {
     @NotBlank(message = "City is required")
     private String name;
 
-    private List<TacoIngredient> ingredientsMatchingWithHtmlPage = new ArrayList<>();
+    private List<String> ingredientsMatchingWithHtmlPage = new ArrayList<>();
 
     public Taco() {
     }
 
-    public Taco(String name, List<TacoIngredient> ingredientsMatchingWithHtmlPage) {
+    public Taco(Long id, Date createdAt, String name, List<String> ingredientsMatchingWithHtmlPage) {
+        this.id = id;
+        this.createdAt = createdAt;
         this.name = name;
         this.ingredientsMatchingWithHtmlPage = ingredientsMatchingWithHtmlPage;
     }
@@ -48,12 +50,21 @@ public class Taco {
         this.createdAt = createdAt;
     }
 
-    public List<TacoIngredient> getIngredientsMatchingWithHtmlPage1() {
+    public List<String> getIngredientsMatchingWithHtmlPage() {
         return ingredientsMatchingWithHtmlPage;
     }
 
-    public void setIngredientsMatchingWithHtmlPage(List<TacoIngredient> ingredientsMatchingWithHtmlPage) {
+    public void setIngredientsMatchingWithHtmlPage(List<String> ingredientsMatchingWithHtmlPage) {
         this.ingredientsMatchingWithHtmlPage = ingredientsMatchingWithHtmlPage;
     }
 
+    @Override
+    public String toString() {
+        return "Taco{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", name='" + name + '\'' +
+                ", ingredientsMatchingWithHtmlPage=" + ingredientsMatchingWithHtmlPage +
+                '}';
+    }
 }

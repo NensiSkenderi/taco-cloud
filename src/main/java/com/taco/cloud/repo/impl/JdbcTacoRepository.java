@@ -1,6 +1,7 @@
 package com.taco.cloud.repo.impl;
 
 import com.taco.cloud.model.Taco;
+import com.taco.cloud.model.TacoIngredient;
 import com.taco.cloud.repo.TacoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
