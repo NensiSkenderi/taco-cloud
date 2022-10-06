@@ -1,12 +1,16 @@
 package com.taco.cloud.model;
 
+import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import java.util.ArrayList;
+import javax.validation.constraints.Size;
 import java.util.Date;
 import java.util.List;
 
+@Entity
 public class Taco {
 
+    @Id
+    @GeneratedValue(strategy= GenerationType.AUTO)
     private Long id;
 
     private Date createdAt;
@@ -14,12 +18,18 @@ public class Taco {
     @NotBlank(message = "City is required")
     private String name;
 
-    private List<String> ingredientsMatchingWithHtmlPage = new ArrayList<>();
+    /*
+    A Taco can have many Ingredient objects,
+    and an Ingredient can be a part of many Taco
+     */
+    @ManyToMany(targetEntity=TacoIngredient.class)
+    @Size(min=1, message="You must choose at least 1 ingredient")
+    private List<TacoIngredient> ingredientsMatchingWithHtmlPage;
 
     public Taco() {
     }
 
-    public Taco(Long id, Date createdAt, String name, List<String> ingredientsMatchingWithHtmlPage) {
+    public Taco(Long id, Date createdAt, String name, List<TacoIngredient> ingredientsMatchingWithHtmlPage) {
         this.id = id;
         this.createdAt = createdAt;
         this.name = name;
@@ -50,12 +60,17 @@ public class Taco {
         this.createdAt = createdAt;
     }
 
-    public List<String> getIngredientsMatchingWithHtmlPage() {
+    public List<TacoIngredient> getIngredientsMatchingWithHtmlPage() {
         return ingredientsMatchingWithHtmlPage;
     }
 
-    public void setIngredientsMatchingWithHtmlPage(List<String> ingredientsMatchingWithHtmlPage) {
+    public void setIngredientsMatchingWithHtmlPage(List<TacoIngredient> ingredientsMatchingWithHtmlPage) {
         this.ingredientsMatchingWithHtmlPage = ingredientsMatchingWithHtmlPage;
+    }
+
+    @PrePersist // before Taco is persisted
+    void createdAt() {
+        this.createdAt = new Date();
     }
 
     @Override

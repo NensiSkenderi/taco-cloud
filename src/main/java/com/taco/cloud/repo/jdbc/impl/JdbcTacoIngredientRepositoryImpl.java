@@ -1,7 +1,7 @@
-package com.taco.cloud.repo.impl;
+package com.taco.cloud.repo.jdbc.impl;
 
 import com.taco.cloud.model.TacoIngredient;
-import com.taco.cloud.repo.TacoIngredientRepository;
+import com.taco.cloud.repo.jdbc.JdbcTacoIngredientRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -9,11 +9,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 @Repository
-public class JdbcTacoIngredientRepository implements TacoIngredientRepository {
+public class JdbcTacoIngredientRepositoryImpl implements JdbcTacoIngredientRepository {
 
     private JdbcTemplate jdbcTemplate;
 
-    public JdbcTacoIngredientRepository(JdbcTemplate jdbcTemplate) {
+    public JdbcTacoIngredientRepositoryImpl(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 

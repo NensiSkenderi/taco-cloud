@@ -1,11 +1,17 @@
 package com.taco.cloud.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+
+@Entity
 public class TacoIngredient {
 
+    @Id
     private String id;
     private String name;
     private Type type;
 
+    // JPA requires that entities have a no-arguments constructor
     public TacoIngredient() {
     }
 

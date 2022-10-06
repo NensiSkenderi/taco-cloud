@@ -3,8 +3,8 @@ package com.taco.cloud.controller;
 import com.taco.cloud.model.Order;
 import com.taco.cloud.model.Taco;
 import com.taco.cloud.model.TacoIngredient;
-import com.taco.cloud.repo.TacoIngredientRepository;
-import com.taco.cloud.repo.TacoRepository;
+import com.taco.cloud.repo.jdbc.JdbcTacoIngredientRepository;
+import com.taco.cloud.repo.jdbc.JdbcTacoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,12 +21,12 @@ import java.util.stream.Collectors;
 @SessionAttributes("order") //specifies any model objects like the order attribute that should be kept in session and available across multiple requests.
 public class DesignTacoController {
 
-    private final TacoIngredientRepository tacoIngredientRepository;
+    private final JdbcTacoIngredientRepository tacoIngredientRepository;
 
-    private final TacoRepository tacoRepository;
+    private final JdbcTacoRepository tacoRepository;
 
     @Autowired
-    public DesignTacoController(TacoIngredientRepository tacoIngredientRepository, TacoRepository tacoRepository) {
+    public DesignTacoController(JdbcTacoIngredientRepository tacoIngredientRepository, JdbcTacoRepository tacoRepository) {
         this.tacoIngredientRepository = tacoIngredientRepository;
         this.tacoRepository = tacoRepository;
     }

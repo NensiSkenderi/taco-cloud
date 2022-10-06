@@ -1,9 +1,8 @@
 package com.taco.cloud.controller;
 
 import com.taco.cloud.model.Order;
-import com.taco.cloud.repo.OrderRepository;
+import com.taco.cloud.repo.jdbc.JdbcOrderRepository;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -18,9 +17,9 @@ import javax.validation.Valid;
 @SessionAttributes("order")
 public class OrderController {
 
-    private OrderRepository orderRepository;
+    private JdbcOrderRepository orderRepository;
 
-    public OrderController(OrderRepository orderRepository) {
+    public OrderController(JdbcOrderRepository orderRepository) {
         this.orderRepository = orderRepository;
     }
 

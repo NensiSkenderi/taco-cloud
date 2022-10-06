@@ -1,9 +1,9 @@
-package com.taco.cloud.repo.impl;
+package com.taco.cloud.repo.jdbc.impl;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.taco.cloud.model.Order;
 import com.taco.cloud.model.Taco;
-import com.taco.cloud.repo.OrderRepository;
+import com.taco.cloud.repo.jdbc.JdbcOrderRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
@@ -15,14 +15,14 @@ import java.util.List;
 import java.util.Map;
 
 @Repository
-public class JdbcOrderRepository implements OrderRepository {
+public class JdbcOrderRepositoryImpl implements JdbcOrderRepository {
 
     private SimpleJdbcInsert orderInserter;
     private SimpleJdbcInsert orderTacoInserter;
     private ObjectMapper objectMapper;
 
     @Autowired
-    public JdbcOrderRepository(JdbcTemplate jdbcTemplate) { //JdbcTemplate jdbcTemplate injected thru constructor
+    public JdbcOrderRepositoryImpl(JdbcTemplate jdbcTemplate) { //JdbcTemplate jdbcTemplate injected thru constructor
         this.orderInserter = new SimpleJdbcInsert(jdbcTemplate)
                 .withTableName("Taco_Order")
                 .usingGeneratedKeyColumns("id");
