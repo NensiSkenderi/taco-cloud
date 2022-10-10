@@ -42,11 +42,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 // here we override basic user auth query
-                .usersByUsernameQuery("select username, password, enabled from Users" + //Customizing user detail queries
+                .usersByUsernameQuery("select username, password, enabled from Users" + // Customizing user detail queries
                         "where username = ?")
                 // here we override group auth query
                 .authoritiesByUsernameQuery("select username, authority from UserAuthorities" +
                         "where username = ?")
                 .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
+
+
+        // LDAP user store
+        // ou = organizational unit
+        auth.ldapAuthentication()
+                .userSearchBase("ou=people") //  base query for finding users
+                .userSearchFilter("uid={0}") // search for users
+                .groupSearchBase("ou=groups") // base query for finding groups
+                .groupSearchFilter("member={0}") // search for groups
+                .passwordCompare();
     }
 }
