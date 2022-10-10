@@ -6,6 +6,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.crypto.password.StandardPasswordEncoder;
 
 import javax.sql.DataSource;
 
@@ -39,9 +41,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // JDBC user store
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
+                // here we override basic user auth query
                 .usersByUsernameQuery("select username, password, enabled from Users" + //Customizing user detail queries
                         "where username = ?")
+                // here we override group auth query
                 .authoritiesByUsernameQuery("select username, authority from UserAuthorities" +
                         "where username = ?")
+                .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
     }
 }
