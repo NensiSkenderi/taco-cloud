@@ -47,6 +47,9 @@ public class Order {
     @ManyToMany(targetEntity=Taco.class)
     private List<Taco> tacos = new ArrayList<>();
 
+    @ManyToOne // many orders to one user
+    private User user;
+
     public Order() {
     }
 
@@ -150,6 +153,14 @@ public class Order {
 
     public void setTacos(List<Taco> tacos) {
         this.tacos = tacos;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     @PrePersist

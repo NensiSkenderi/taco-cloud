@@ -2,61 +2,60 @@ package com.taco.cloud.config.security;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.DelegatingPasswordEncoder;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.crypto.password.StandardPasswordEncoder;
-
-import javax.sql.DataSource;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    DataSource dataSource;
+    @Autowired
+    private UserDetailsService userDetailsService;
 
-    SecurityConfig(DataSource dataSource) {
-        this.dataSource = dataSource;
+    @Bean
+    public PasswordEncoder encoder() {
+        return new StandardPasswordEncoder("53cr3t");
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        /* here we write code that uses the given AuthenticationManagerBuilder
-        to specify how users will be looked up during authentication.
-         */
+        // Custom user details store
+        auth.userDetailsService(userDetailsService).passwordEncoder(encoder());
+    }
 
+    // for securing web requests
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
 
-        // In-memory user store
-        auth.inMemoryAuthentication()
-                    .withUser("nensi")
-                    .password("nensi")
-                    .authorities("ROLE_USER")
+        // The order of these rules is important.
+        // Security rules declared first take precedence over those declared lower down
+        http
+                .authorizeRequests()
+                .antMatchers("/design", "/orders").authenticated()
+                .antMatchers("/", "/**").permitAll()
+
                 .and()
-                    .withUser("test")
-                    .password("test")
-                    .authorities("ROLE_USER");
+                .formLogin()
+                .loginPage("/login")
+                /*
+                By default, a successful login will take
+                the user directly to the page that they
+                were navigating to when Spring Security determined
+                that they needed to log in.
+                But we can specify it
+                 */
+                //.defaultSuccessUrl("/design")
+                .defaultSuccessUrl("/design", true) // force, even if they were navigating elsewhere
 
-        // JDBC user store
-        auth.jdbcAuthentication()
-                .dataSource(dataSource)
-                // here we override basic user auth query
-                .usersByUsernameQuery("select username, password, enabled from Users" + // Customizing user detail queries
-                        "where username = ?")
-                // here we override group auth query
-                .authoritiesByUsernameQuery("select username, authority from UserAuthorities" +
-                        "where username = ?")
-                .passwordEncoder(new StandardPasswordEncoder("53cr3t"));
-
-
-        // LDAP user store
-        // ou = organizational unit
-        auth.ldapAuthentication()
-                .userSearchBase("ou=people") //  base query for finding users
-                .userSearchFilter("uid={0}") // search for users
-                .groupSearchBase("ou=groups") // base query for finding groups
-                .groupSearchFilter("member={0}") // search for groups
-                .passwordCompare();
+                .and()
+                .logout()
+                .logoutSuccessUrl("/");
     }
 }

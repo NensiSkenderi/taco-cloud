@@ -12,5 +12,8 @@ public class WebConfig implements WebMvcConfigurer {
         //now that we have this config, we can remove HomeController
         registry.addViewController("/")
                 .setViewName("home");
+
+        registry.addViewController("/login")
+                .setViewName("login");
     }
 }
