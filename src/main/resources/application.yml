@@ -1,0 +1,7 @@
+server:
+  port: 1234
+
+  datasource:
+    url: jdbc:mysql://localhost/tacocloud
+    username: root
+    password: root

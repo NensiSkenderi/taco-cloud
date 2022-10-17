@@ -27,7 +27,7 @@ public class RegisterUserController {
 
     @PostMapping("/registerNensi") // this is for th:action
     public String processRegistration(RegistrationForm registerForm){
-        // in register.html we have id but it also workds with th:object
+        // in register.html we have id but it also works with th:object
         // to specify an object to which the submitted form data will be bound
         jpaUserRepository.save(registerForm.toUser(passwordEncoder));
         return "redirect:/login";
