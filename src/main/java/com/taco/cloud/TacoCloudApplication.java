@@ -1,11 +1,13 @@
 package com.taco.cloud;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
 public class TacoCloudApplication {
+
 
     public static void main(String[] args) {
         SpringApplication.run(TacoCloudApplication.class, args);
@@ -22,6 +24,7 @@ public class TacoCloudApplication {
 
         boolean isPasswordMatch = passwordEncoder.matches(password, encodedPassword);
         System.out.println("Password : " + password + "   isPasswordMatch    : " + isPasswordMatch);
+
     }
 
 }

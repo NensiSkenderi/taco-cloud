@@ -5,3 +5,24 @@ server:
     url: jdbc:mysql://localhost/tacocloud
     username: root
     password: root
+
+
+logging:
+#  path: logs
+  file: log-file.txt
+  level:
+    root: WARN # sets root-logging level
+    org:
+      springframework: # sets spring security logging level
+        security: DEBUG
+
+
+nensi:
+  greeting: nsene
+
+
+welcome: you are using ${nensi.greeting}
+
+taco:
+  orders:
+    pageSize: 10

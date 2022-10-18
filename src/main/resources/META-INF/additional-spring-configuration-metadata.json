@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "taco.orders.pageSize",
+      "type": "java.lang.String",
+      "description": "Sets the number of orders to display in a list."
+    },
+    {
+      "name": "welcome",
+      "type": "java.lang.String",
+      "description": "Just for some testing."
+    }
+  ] }

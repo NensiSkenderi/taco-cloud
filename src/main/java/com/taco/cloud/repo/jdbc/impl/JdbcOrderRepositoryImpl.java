@@ -54,11 +54,12 @@ public class JdbcOrderRepositoryImpl implements JdbcOrderRepository {
         same name with the columns that they’re going into.
         Because of that, in saveOrderDetails(), I’ve decided to
         use Jackson’s ObjectMapper and its convertValue() method
-        to convert an Order into a Map.[1] Once the Map is created,
-        you’ll set the placedAt entry to the value of the Order
-        object’s placedAt property. This is necessary because
-        ObjectMapper would otherwise convert the Date property into a long,
-        which is incompatible with the placedAt field in the Taco_Order table.
+        to convert an Order into a Map.
+        Once the Map is created, you’ll set the createAt entry to
+        the value of the Order object’s createdAt property.
+        This is necessary because ObjectMapper would otherwise convert
+        the Date property into a long, which is incompatible
+        with the createdAt field in the Taco_Order table.
          */
 
 

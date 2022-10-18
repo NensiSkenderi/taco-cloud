@@ -38,8 +38,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         // Security rules declared first take precedence over those declared lower down
         http
                 .authorizeRequests()
-                .antMatchers("/design", "/orders").authenticated()
-                .antMatchers("/", "/**").permitAll()
+                .antMatchers("/**").permitAll()
 
                 .and()
                 .formLogin()

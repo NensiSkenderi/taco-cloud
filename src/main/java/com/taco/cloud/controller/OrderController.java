@@ -1,8 +1,15 @@
 package com.taco.cloud.controller;
 
+import com.taco.cloud.config.data.OrderConfigProperties;
 import com.taco.cloud.model.Order;
+import com.taco.cloud.model.User;
 import com.taco.cloud.repo.jdbc.JdbcOrderRepository;
+import com.taco.cloud.repo.jpa.JpaOrderRepository;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,10 +24,13 @@ import javax.validation.Valid;
 @SessionAttributes("order")
 public class OrderController {
 
-    private JdbcOrderRepository orderRepository;
+    private JpaOrderRepository orderRepository;
 
-    public OrderController(JdbcOrderRepository orderRepository) {
+    private OrderConfigProperties orderConfigProperties;
+
+    public OrderController(JpaOrderRepository orderRepository, OrderConfigProperties orderConfigProperties) {
         this.orderRepository = orderRepository;
+        this.orderConfigProperties = orderConfigProperties;
     }
 
     @GetMapping("/current")
@@ -37,5 +47,14 @@ public class OrderController {
         orderRepository.save(order);
         sessionStatus.setComplete(); //Once the order is saved, we dont need it in a session anymore.
         return "redirect:/";
+    }
+
+    @GetMapping
+    public String ordersForUser(@AuthenticationPrincipal User user, Model model){
+        Pageable p = PageRequest.of(0,orderConfigProperties.getPageSize());
+        model.addAttribute("orders-nensi",
+                orderRepository.findByUserOrderByCreatedAtDesc(user, p));
+
+        return "order-list";
     }
 }
