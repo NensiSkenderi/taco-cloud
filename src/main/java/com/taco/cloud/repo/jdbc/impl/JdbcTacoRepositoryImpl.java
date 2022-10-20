@@ -36,7 +36,7 @@ public class JdbcTacoRepositoryImpl implements JdbcTacoRepository {
     public Taco save(Taco taco) {
         long tacoId = saveTacoInfo(taco);
         taco.setId(tacoId);
-        for (TacoIngredient ingredient : taco.getIngredientsMatchingWithHtmlPage()) {
+        for (TacoIngredient ingredient : taco.getIngredients()) {
             saveTacoIngredientForEachIngredient(ingredient.getName(), tacoId);
         }
         return taco;

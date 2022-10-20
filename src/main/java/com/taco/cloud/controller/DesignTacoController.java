@@ -3,8 +3,10 @@ package com.taco.cloud.controller;
 import com.taco.cloud.model.Order;
 import com.taco.cloud.model.Taco;
 import com.taco.cloud.model.TacoIngredient;
-import com.taco.cloud.repo.jdbc.JdbcTacoIngredientRepository;
-import com.taco.cloud.repo.jdbc.JdbcTacoRepository;
+import com.taco.cloud.model.User;
+import com.taco.cloud.repo.jpa.JpaTacoIngredientRepository;
+import com.taco.cloud.repo.jpa.JpaTacoRepository;
+import com.taco.cloud.repo.jpa.JpaUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,23 +14,28 @@ import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/design")
-@SessionAttributes("order") //specifies any model objects like the order attribute that should be kept in session and available across multiple requests.
+@SessionAttributes("order")
+//specifies any model objects like the order attribute that should be kept in session and available across multiple requests.
 public class DesignTacoController {
 
-    private final JdbcTacoIngredientRepository tacoIngredientRepository;
+    private final JpaTacoIngredientRepository tacoIngredientRepository;
 
-    private final JdbcTacoRepository tacoRepository;
+    private final JpaTacoRepository tacoRepository;
+
+    private final JpaUserRepository userRepository;
 
     @Autowired
-    public DesignTacoController(JdbcTacoIngredientRepository tacoIngredientRepository, JdbcTacoRepository tacoRepository) {
+    public DesignTacoController(JpaTacoIngredientRepository tacoIngredientRepository, JpaTacoRepository tacoRepository, JpaUserRepository userRepository) {
         this.tacoIngredientRepository = tacoIngredientRepository;
         this.tacoRepository = tacoRepository;
+        this.userRepository = userRepository;
     }
 
     @ModelAttribute(name = "order")
@@ -47,7 +54,7 @@ public class DesignTacoController {
 //    }
 
     @GetMapping
-    public String showDesignForm(Model model) {
+    public String showDesignForm(Model model, Principal principal) {
         List<TacoIngredient> ingredients = new ArrayList<>();
         tacoIngredientRepository.findAll().forEach(ingredients::add);
 
@@ -58,16 +65,18 @@ public class DesignTacoController {
                     .collect(Collectors.toList()));
         }
 
-        model.addAttribute("designnensi", new Taco());
+        User user = userRepository.findByUsername(principal.getName());
+
+        model.addAttribute("user", user);
 
         return "design-taco";
     }
 
     @PostMapping
-    public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order){
+    public String processDesign(@Valid Taco taco, Errors errors, @ModelAttribute Order order) {
         System.out.println("Processing the taco " + taco);
 
-         if(errors.hasErrors()){
+        if (errors.hasErrors()) {
             return "design-taco";
         }
 
