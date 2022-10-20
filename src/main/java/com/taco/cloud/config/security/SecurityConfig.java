@@ -62,11 +62,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .headers()
                 .frameOptions()
-                .sameOrigin()
-
-                .and()
-                .csrf()
-                .disable();
+                .sameOrigin();
 
     }
 }
