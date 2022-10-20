@@ -1,4 +1,4 @@
-package com.taco.cloud.config.data;
+package com.taco.cloud.config.web;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;

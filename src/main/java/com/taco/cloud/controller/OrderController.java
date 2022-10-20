@@ -1,9 +1,8 @@
 package com.taco.cloud.controller;
 
-import com.taco.cloud.config.data.OrderConfigProperties;
+import com.taco.cloud.config.web.OrderConfigProperties;
 import com.taco.cloud.model.Order;
 import com.taco.cloud.model.User;
-import com.taco.cloud.repo.jdbc.JdbcOrderRepository;
 import com.taco.cloud.repo.jpa.JpaOrderRepository;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;

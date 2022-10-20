@@ -48,11 +48,6 @@ public class DesignTacoController {
         return new Taco();
     }
 
-//    @ModelAttribute(name = "designnensi")
-//    public TacoIngredient tacoIngredient() {
-//        return new TacoIngredient();
-//    }
-
     @GetMapping
     public String showDesignForm(Model model, Principal principal) {
         List<TacoIngredient> ingredients = new ArrayList<>();
