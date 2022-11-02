@@ -9,8 +9,8 @@
     <version>0.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>taco-cloud</name>
-    <description>Taco Cloud Example</description>
+    <name>taco-cloud-spring-mvc</name>
+    <description>Taco Cloud Spring MVC</description>
 
     <parent>
         <groupId>org.springframework.boot</groupId>
